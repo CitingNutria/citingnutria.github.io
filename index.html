@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面重定向中...</title>
+    
+    <script>
+        // 1. 定义你的新域名（注意：末尾不要加斜杠 /）
+        const NEW_DOMAIN = "https://citingnutria.vercel.app";
+
+        // 2. 获取当前旧网址的路径（例如 /about）和参数（例如 ?id=123）
+        const currentPath = window.location.pathname;
+        const currentSearch = window.location.search;
+        const currentHash = window.location.hash;
+
+        // 3. 拼接成完整的新 URL
+        const targetUrl = NEW_DOMAIN + currentPath + currentSearch + currentHash;
+
+        // 4. 执行替换跳转（不会留下历史记录，防止回退死循环）
+        window.location.replace(targetUrl);
+    </script>
+</head>
+<body>
+    <div style="text-align: center; margin-top: 10%;">
+        <h2>网站已迁移</h2>
+        <p>正在为您自动跳转至新地址...</p>
+        <p>如果系统没有自动跳转，请 <a id="backup-link" href="#">点击此处直接访问</a>。</p>
+    </div>
+
+    <script>
+        // 兜底逻辑：如果上面的 JS 跳转因为极特殊原因慢了，用户也可以点击备用链接
+        document.getElementById("backup-link").href = targetUrl;
+    </script>
+</body>
+</html>
